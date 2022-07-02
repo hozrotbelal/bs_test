@@ -2,13 +2,16 @@ package com.example.bs_test.di.module
 
 import android.content.Context
 import com.example.bs_test.BuildConfig
-import com.example.bs_test.data.network.api.ApiHelper
-import com.example.bs_test.data.network.api.ApiHelperImpl
 import com.example.bs_test.data.network.api.ApiService
 
 import com.example.bs_test.data.network.interceptor.CoilInterceptor
 import com.example.bs_test.data.storage.PreferenceStorage
 import coil.util.CoilUtils
+import com.example.bs_test.data.network.adapter.LiveDataCallAdapterFactory
+import com.example.bs_test.data.network.api.APIConstants
+import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,11 +38,11 @@ object NetworkModule {
 //    fun provideBaseUrl(): HttpUrl {
 //        return API_URL
 //    }
-//    @Singleton
-//    @ProvidesFF
-//    fun provideBaseUrl(): HttpUrl {
-//        return BuildConfig.BASE_DOMAIN_URL.toHttpUrl()
-//    }
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    }
 
     @Singleton
     @Provides
@@ -49,18 +52,19 @@ object NetworkModule {
         return CoilInterceptor(storage)
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideOkHttpClient(coilInterceptor: CoilInterceptor): OkHttpClient {
-//        val mBuilder = OkHttpClient.Builder()
-//            .readTimeout(300, TimeUnit.SECONDS)
-//            .callTimeout(300, TimeUnit.SECONDS)
-//            .writeTimeout(300, TimeUnit.SECONDS)
-//        if (BuildConfig.DEBUG) mBuilder.addNetworkInterceptor(StethoInterceptor())
-//        mBuilder.addInterceptor(coilInterceptor)
-//
-//        return mBuilder.build()
-//    }
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(coilInterceptor: CoilInterceptor): OkHttpClient {
+        val mBuilder = OkHttpClient.Builder()
+            .readTimeout(300, TimeUnit.SECONDS)
+            .callTimeout(300, TimeUnit.SECONDS)
+            .writeTimeout(300, TimeUnit.SECONDS)
+        if (BuildConfig.DEBUG) mBuilder.addNetworkInterceptor(StethoInterceptor())
+        mBuilder.addInterceptor(coilInterceptor)
+
+        return mBuilder.build()
+    }
+
 
 //    @Provides
 //    @Singleton
@@ -95,16 +99,16 @@ object NetworkModule {
         return CoilUtils.createDefaultCache(ctx)
     }
 
-//    @Provides
-//    @Singleton
-//    fun providesRetrofit(mClient: OkHttpClient, mMoshi: Moshi): Retrofit {
-//        return Retrofit.Builder()
-//            .client(mClient)
-//            .baseUrl(BuildConfig.BASE_DOMAIN_URL)
-//            .addConverterFactory(MoshiConverterFactory.create(mMoshi))
-//            .addCallAdapterFactory(LiveDataCallAdapterFactory())
-//            .build()
-//    }
+    @Provides
+    @Singleton
+    fun providesRetrofit(mClient: OkHttpClient, mMoshi: Moshi): Retrofit {
+        return Retrofit.Builder()
+            .client(mClient)
+            .baseUrl(APIConstants.BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(mMoshi))
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .build()
+    }
 
     @Provides
     @Singleton

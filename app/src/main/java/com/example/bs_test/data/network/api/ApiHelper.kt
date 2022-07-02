@@ -12,6 +12,6 @@ import retrofit2.http.Path
 
 
 interface ApiHelper {
-
-//    suspend fun getSpotifySearch(searchKey:String,perPage:Int,page:Int): Resource<SpotifySearchResponse>
-   }
+   //override suspend fun getContributors(ownerName: String?,repoName: String?,): Resource<List<Owner>> = apiService.getContributors(ownerName, repoName)
+   suspend fun getContributors(ownerName: String?,repoName: String?,): Response<List<Owner>>
+}

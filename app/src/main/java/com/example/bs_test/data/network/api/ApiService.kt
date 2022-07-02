@@ -1,25 +1,25 @@
 package com.example.bs_test.data.network.api
 
-import androidx.lifecycle.LiveData
-import com.example.bs_test.data.network.api.ApiResponse
-import com.example.bs_test.BuildConfig
-
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import retrofit2.Call
+import com.example.bs_test.data.model.GetRepos
+import com.example.bs_test.data.model.Owner
 import retrofit2.Response
-
 import retrofit2.http.*
 
 interface ApiService {
-//
-//    @GET(BuildConfig.BASE_DOMAIN_URL + "avcs/app/v1/vq")
-//    fun getSystemStatus(
-//        @Query("name") name: String?,
-//        @Query("version") version: String?,
-//        @Query("platform") platform: Int
-//    ): LiveData<ApiResponse<Hrythm>>
 
+    @GET(APIConstants.GET_REPOS)
+    suspend fun getGitRepositories(
+        @Query("q") q: String?,
+        @Query("sort") sort: String?,
+        @Query("order") order: String?,
+        @Query("per_page") perPage: Int?,
+        @Query("page") page: Int?
+    ): Response<GetRepos>
 
+    @GET(APIConstants.GET_CONTRIBUTORS)
+    suspend fun getContributors(
+        @Path("ownerName") ownerName: String?,
+        @Path("repoName") repoName: String?,
+    ): Response<List<Owner>>
 
 }

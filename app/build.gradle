@@ -21,17 +21,17 @@ android {
     }
 
     buildTypes {
-//        release {
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-
-        debug {
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            // signingConfig signingConfigs.dev
-            debuggable true
         }
+
+//        debug {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            // signingConfig signingConfigs.dev
+//            debuggable true
+//        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -93,11 +93,14 @@ dependencies {
 
     def moshiVersion = '1.13.0'
 
-//    implementation "com.squareup.moshi:moshi-kotlin:${moshiVersion}"
-//    implementation "com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}"
-//   // kapt "com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}"
-//    implementation "com.squareup.moshi:moshi:${moshiVersion}"
-
+    implementation "com.squareup.moshi:moshi-kotlin:${moshiVersion}"
+   // implementation "com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}"
+    implementation "com.squareup.moshi:moshi:${moshiVersion}"
+    // Stetho
+    def stethoVersion = "1.6.0"
+    implementation "com.facebook.stetho:stetho:${stethoVersion}"
+    implementation "com.facebook.stetho:stetho-okhttp3:${stethoVersion}"
     // security
     implementation 'androidx.security:security-crypto:1.1.0-alpha01'
     // Paging

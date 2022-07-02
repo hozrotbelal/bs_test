@@ -18,8 +18,8 @@ import javax.inject.Singleton
 
 @Singleton
 class CoilInterceptor @Inject constructor(
-    val  preferences: PreferenceStorage
-): Interceptor {
+    val preferences: PreferenceStorage
+) : Interceptor {
 
 
     @Throws(IOException::class)
@@ -28,11 +28,12 @@ class CoilInterceptor @Inject constructor(
 
         synchronized(this) {
 
-            val request = request(chain, preferences.token,preferences.updateToken)
+            // val request = request(chain, preferences.token,preferences.updateToken)
+            val request = request(chain)
 
             val initialResponse = chain.proceed(request)
             val code = initialResponse.code()
-           Timber.e("code "+code.toString()+"\n"+request.toString())
+            Timber.e("code " + code.toString() + "\n" + request.toString())
 
 
             when {
@@ -76,11 +77,11 @@ class CoilInterceptor @Inject constructor(
 //                            }
 //                        }
 //                    }
-               // }
+                // }
                 else -> {
                     Timber.e(initialResponse.toString())
                     Timber.e(initialResponse.body().toString())
-                    if(  code == 401) {
+                    if (code == 401) {
                         logout()
                     }
                     return initialResponse
@@ -89,8 +90,8 @@ class CoilInterceptor @Inject constructor(
 
             }
 
-      }
-        
+        }
+
 
     }
 
@@ -118,63 +119,34 @@ class CoilInterceptor @Inject constructor(
 //        return removed
 //    }
 
-    private fun request(chain: Interceptor.Chain, token: String,updateToken:String): Request {
+    private fun request(chain: Interceptor.Chain): Request {
         val original = chain.request()
         val originalHttpUrl = original.url()
-        Timber.e("request called"+original.url().toString())
-try {
+        Timber.e("request called" + original.url().toString())
+        try {
 
+//var token=if(isEmpty(token)) updateToken else token
+            val requestBuilder = original.newBuilder()
+//                if(!isEmpty(token))
+//                    requestBuilder.addHeader("Authorization", "Bearer "+if(isEmpty(token)) updateToken else token)
+                .url(originalHttpUrl)
+            return requestBuilder.build()
 
+        } catch (e: Exception) {
 
-    if (original.url().toString().startsWith(SPOTIFY_URL)) {
-        Timber.e(original.url().toString())
-        val requestBuilder = original.newBuilder()
-            //.addHeader("Authorization", token.JWT)
-            .addHeader("Authorization", SPOTIFY_BASIC_TOKEN)
-            // .addHeader("Accept-Language", storage.language)
-            .url(originalHttpUrl)
-        return requestBuilder.build()
-    } else if (original.url().toString().startsWith(SPOTIFY_QUERY_URL)) {
-        Timber.e("header" + "Bearer " + preferences.spotifyToken)
-        val requestBuilder = original.newBuilder()
-            //.addHeader("Authorization", token.JWT)
-            .addHeader("Authorization", "Bearer " + preferences.spotifyToken)
-            // .addHeader("Accept-Language", storage.language)
-            .url(originalHttpUrl)
-        return requestBuilder.build()
-    }  else if(original.url().toString().endsWith("validateToken"))
-    {
-        val requestBuilder = original.newBuilder()
-            .addHeader("Cookie", HEADER_VALUE )
-            .url(originalHttpUrl)
-        return requestBuilder.build()
-    }
-    else {
-        Timber.e("header "+"bearer "+if(isEmpty(token)) updateToken else token)
-var token=if(isEmpty(token)) updateToken else token
-        val requestBuilder = original.newBuilder()
-                if(!isEmpty(token))
-                    requestBuilder.addHeader("Authorization", "Bearer "+if(isEmpty(token)) updateToken else token)
-            .url(originalHttpUrl)
-        return requestBuilder.build()
-    }
-}
-catch (e:Exception)
-{
-
-    Timber.e(e.message)
-    val requestBuilder = original.newBuilder()
-       // .addHeader("Authorization", token.JWT)
-        //  .addHeader("Authorization", "Basic YjcxYThkMmJjMDI3NGE3MGEwY2NkZDExZjIyZjcwNjI6MTI3YzI5MDgxMmIzNDRhMWI4ZDUxNDU1ZGRmMjc1YTA=")
-        // .addHeader("Accept-Language", storage.language)
-        .url(originalHttpUrl)
-    return requestBuilder.build()
-}
+            Timber.e(e.message)
+            val requestBuilder = original.newBuilder()
+                // .addHeader("Authorization", token.JWT)
+                //  .addHeader("Authorization", "Basic YjcxYThkMmJjMDI3NGE3MGEwY2NkZDExZjIyZjcwNjI6MTI3YzI5MDgxMmIzNDRhMWI4ZDUxNDU1ZGRmMjc1YTA=")
+                // .addHeader("Accept-Language", storage.language)
+                .url(originalHttpUrl)
+            return requestBuilder.build()
+        }
     }
 
     private fun logout() {
-        preferences.token= ""
-        preferences.updateToken= ""
+        preferences.token = ""
+        preferences.updateToken = ""
         Timber.e("Logout-")
         val intent = Intent(ACTION_LOGOUT)
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
