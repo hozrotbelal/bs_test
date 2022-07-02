@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">bs_test</string>
+
+
+    <string name="error_message_network">Network error</string>
+    <string name="error_message_unknown">Unknown error</string>
 </resources>
