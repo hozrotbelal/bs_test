@@ -32,7 +32,7 @@ class CoilInterceptor @Inject constructor(
             val request = request(chain)
 
             val initialResponse = chain.proceed(request)
-            val code = initialResponse.code()
+            val code = initialResponse.code
             Timber.e("code " + code.toString() + "\n" + request.toString())
 
 
@@ -80,7 +80,7 @@ class CoilInterceptor @Inject constructor(
                 // }
                 else -> {
                     Timber.e(initialResponse.toString())
-                    Timber.e(initialResponse.body().toString())
+                    Timber.e(initialResponse.body.toString())
                     if (code == 401) {
                         logout()
                     }
@@ -121,8 +121,8 @@ class CoilInterceptor @Inject constructor(
 
     private fun request(chain: Interceptor.Chain): Request {
         val original = chain.request()
-        val originalHttpUrl = original.url()
-        Timber.e("request called" + original.url().toString())
+        val originalHttpUrl = original.url
+        Timber.e("request called" + original.url.toString())
         try {
 
 //var token=if(isEmpty(token)) updateToken else token

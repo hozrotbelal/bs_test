@@ -12,9 +12,9 @@ import com.example.bs_test.di.databinding.CustomBindingEntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.android.HiltAndroidApp
 import com.example.bs_test.data.network.interceptor.CoilInterceptor
-import com.example.bs_test.di.module.AppCoroutineScope
 import com.example.bs_test.di.module.CoilCache
 import com.example.bs_test.utils.LocaleHelper
+import com.example.bs_test.di.module.AppCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Cache
 import okhttp3.OkHttpClient

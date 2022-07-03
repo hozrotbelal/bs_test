@@ -16,14 +16,16 @@ import com.example.bs_test.data.storage.PreferenceStorage
 import com.example.bs_test.databinding.ActivityMainBinding
 import com.example.bs_test.ui.viewmodel.MainViewModel
 import com.example.bs_test.utils.LocaleHelper
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var navController: NavController? = null
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    val mainViewModel: MainViewModel by viewModels()
+
     private var constraintSet1: ConstraintSet? = null
     private var constraintSet2: ConstraintSet? = null
     private var zoom = false
@@ -31,27 +33,27 @@ class MainActivity : AppCompatActivity() {
     private var move = true
     private var moveToMap = true
     private var isGPSEnabled = false
-
-
+    lateinit var loginViewModel: MainViewModel
 
     @Inject
     lateinit var preferences: PreferenceStorage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         setupNavController()
         setUpView()
     }
 
     private fun setUpView() {
-        constraintSet1 = ConstraintSet()
-        constraintSet2 = ConstraintSet()
+//        constraintSet1 = ConstraintSet()
+//        constraintSet2 = ConstraintSet()
 
 
         Timber.e("shouldOverrideUrlLoading--");
 
-
+      //  navController?.navigate(R.id.homeScreenFragment)
 //        img_notification.setOnClickListener {
 //            navController?.navigate(R.id.NotificationBottomSheetFragment)
 //            //  goNotificationDetails(this)

@@ -1,8 +1,6 @@
 package com.example.bs_test.data.network.api
 
-import com.example.bs_test.data.model.GetRepos
 import com.example.bs_test.data.model.Owner
-import com.example.bs_test.data.network.Resource
 import retrofit2.Response
 import javax.inject.Inject
 
