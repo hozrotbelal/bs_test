@@ -1,5 +1,6 @@
 package com.example.bs_test.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +28,7 @@ class MainViewModel @Inject constructor(
     var itemsCount = 0
     var order: String = ""
     var quary: String = ""
-    val sort = "asc"
+    val sort = ""
     var mIsLoading: Boolean = false
     var mIsLastPage: Boolean = false
     var edit: Boolean = false
@@ -37,16 +38,17 @@ class MainViewModel @Inject constructor(
     val postData = MutableLiveData<Resource<MutableList<Item>>>()
 
 
-    fun getReposByText() {
+    fun getReposByList(search : String?,sort : String,order : String) {
         mIsLoading = true
         viewModelScope.launch {
             postData.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
-                mainRepository.getGitRepositories(quary, sort,order,limit, page).let {
+                mainRepository.getGitRepositories(search, sort,order,limit, page).let {
                     if (it.status == Status.SUCCESS) {
                         page++
                         mIsLoading = false
                         it.data?.let { data ->
+                            Log.e("getReposByList",data.items!!.toString()+"")
                             totalCount = data.totalCount!!
                             itemsCount += data.items!!.size
                             mIsLastPage = data.items!!.size != limit

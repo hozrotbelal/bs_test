@@ -33,13 +33,15 @@ class MainActivity : AppCompatActivity() {
     private var move = true
     private var moveToMap = true
     private var isGPSEnabled = false
-    lateinit var loginViewModel: MainViewModel
+   // lateinit var loginViewModel: MainViewModel
+   private val mainViewModel : MainViewModel by viewModels()
 
     @Inject
     lateinit var preferences: PreferenceStorage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
+        mainViewModel.getReposByList("android","stars","desc")
 
         setContentView(binding.root)
         setupNavController()
