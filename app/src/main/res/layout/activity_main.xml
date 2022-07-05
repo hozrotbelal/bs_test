@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,7 +21,6 @@
                 android:id="@+id/main_ui_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
 
                 <RelativeLayout
                     android:id="@+id/content_viewe1"
@@ -42,6 +42,111 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
+
+            <?xml version="1.0" encoding="utf-8"?>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/con_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:animateLayoutChanges="true">
+
+                        <TextView
+                            android:id="@+id/tv_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintBottom_toTopOf="@+id/img_back"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            />
+
+                        <ImageButton
+                            android:id="@+id/img_back"
+                            android:layout_width="18dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_back"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_top" />
+
+                        <TextView
+                            android:id="@+id/tv_header"
+                            style="@style/TextBody18Bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing=".1"
+                            android:text="song"
+                            android:textColor="@color/base_text_color"
+                            app:layout_constraintBottom_toTopOf="@+id/rel_filter"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_top" />
+
+                        <RelativeLayout
+                            android:id="@+id/rel_filter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/img_back">
+
+                            <EditText
+                                android:id="@+id/et_search"
+                                style="@style/TextBody12"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_50sdp"
+                                android:layout_marginTop="@dimen/_19sdp"
+                                android:layout_marginStart="@dimen/_25sdp"
+                                android:layout_marginEnd="@dimen/_65sdp"
+                                android:alpha="1.5"
+                                android:background="@drawable/background_curve"
+                                android:drawableLeft="@drawable/ic_search"
+                                android:drawablePadding="@dimen/_10sdp"
+                                android:hint="live"
+                                android:letterSpacing="-.015"
+                                android:lines="1"
+                                android:paddingStart="@dimen/_10sdp"
+                                android:paddingEnd="@dimen/_9sdp"
+                                android:singleLine="true"
+                                android:textColor="@color/text_color"
+                                android:textColorHint="@color/view_color"
+                                android:visibility="visible"
+                                app:layout_constraintEnd_toStartOf="@+id/iv_filter"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"                                tools:text="Search" />
+
+                            <ImageView
+                                android:id="@+id/iv_filter"
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_45sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:background="@drawable/drawable_filter_background"
+                                android:padding="@dimen/spacing_8_dp"
+                                app:layout_constraintBottom_toTopOf="@+id/et_search"
+                                app:srcCompat="@drawable/ic_filter" />
+
+
+                        </RelativeLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
