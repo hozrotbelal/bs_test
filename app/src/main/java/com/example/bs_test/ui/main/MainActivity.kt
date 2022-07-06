@@ -11,12 +11,19 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.bs_test.R
+import com.example.bs_test.data.interfaces.SearchSelectionListener
+import com.example.bs_test.data.model.Item
+import com.example.bs_test.data.network.Status
 import com.example.bs_test.data.storage.PreferenceStorage
 import com.example.bs_test.databinding.ActivityMainBinding
+import com.example.bs_test.ui.adapter.SearchAdapter
 import com.example.bs_test.ui.viewmodel.MainViewModel
 import com.example.bs_test.utils.LocaleHelper
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -27,7 +34,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchSelectionListener {
     var navController: NavController? = null
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
@@ -41,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private var isGPSEnabled = false
    // lateinit var loginViewModel: MainViewModel
    private val mainViewModel : MainViewModel by viewModels()
+    private lateinit var searchAdapter: SearchAdapter
 
     @Inject
     lateinit var preferences: PreferenceStorage
@@ -56,7 +64,45 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpView() {
 
-       _binding!!.ivFilter.setOnClickListener {
+        searchAdapter = SearchAdapter(this, mutableListOf(), mainViewModel, this)
+        binding?.rcSearch.apply {
+            this?.layoutManager = LinearLayoutManager(context)
+            this?.adapter = searchAdapter
+
+        }
+
+        mainViewModel.postData.observe(this) {
+            it?.let { resource ->
+                run {
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            searchAdapter.stopPagination(mainViewModel.mIsLastPage)
+                            if (searchAdapter.hasData()) {
+                                searchAdapter.addAll(resource.data!!)
+                            } else {
+                                searchAdapter.addAll(mainViewModel.postList)
+                            }
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.LOADING -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
+//        mainViewModel.highLightPostSelectionUpdate.observe(this) {
+//            it?.let { resource ->
+//                run {
+//                    searchAdapter.selectionUpdate(resource)
+//                }
+//            }
+//        }
+
+        _binding!!.ivFilter.setOnClickListener {
            onFilterBottomDialog()
        }
         Timber.e("shouldOverrideUrlLoading--");
@@ -129,7 +175,7 @@ class MainActivity : AppCompatActivity() {
              }
          }
         dialog.setCancelable(false)
-//        dialog.setContentView(view)
+        dialog.setContentView(view)
         dialog.show()
 
     }
@@ -235,6 +281,13 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onSearchSelect(searchSelection: Item) {
+
+    }
+
+    override fun onPagination() {
     }
 
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.bs_test.R
 import com.example.bs_test.data.interfaces.SearchSelectionListener
 import com.example.bs_test.data.model.Item
@@ -47,7 +48,7 @@ class SearchAdapter(val context: Context,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is CustomViewHolder) {
-//            holder.binding.data = list[position]
+           holder.binding.data = list[position]
 //            val isSelected = highLightViewModel.isPostSelected(list[position].id)
 //            holder.itemView.tik_mark.isSelected = isSelected
 //            holder.binding.foreground.visibility = if (isSelected) View.VISIBLE else View.GONE
@@ -57,6 +58,19 @@ class SearchAdapter(val context: Context,
 //                val selectedPost = SelectedPost(postDetails.id, postDetails.music!!.artwork, postDetails.music.musicName, postDetails.music.artistName, postDetails.publishStartDateTime)
 //                listener.onPostSelect(HighLightPostSelection(selectedPost, !holder.itemView.tik_mark.isSelected))
 //            }
+
+            holder.binding.tvName.text = list[position].name
+            holder.binding.textViewFullName.text = list[position].fullName
+            holder.binding.textViewWatchCommitCount.text = "Watcher Count ${list[position].watchersCount}, Forks Count ${list[position].forksCount}"
+
+
+            Glide.with(context)
+                .load(list[position].owner!!.avatarUrl)
+                .centerCrop()
+                .placeholder(R.drawable.ic_profile)
+                .error(R.drawable.ic_profile)
+                .into(holder.binding.ivProfile)
+
         } else if (holder is FooterViewHolder) {
             if (stopPagination) {
                 holder.binding.parentLayout.visibility = View.GONE

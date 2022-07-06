@@ -22,7 +22,7 @@ class MainViewModel @Inject constructor(
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
-    val limit = 10
+    val limit = 30
     var page = 1
     var totalCount = 0
     var itemsCount = 0

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+ >
 
     <data>
 
@@ -10,19 +11,19 @@
             type="com.example.bs_test.data.model.Item" />
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp">
+            android:layout_marginBottom="@dimen/_8sdp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile"
@@ -41,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
-                android:text="Text"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -50,6 +51,7 @@
                 android:id="@+id/textViewFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/TextBody12"
                 android:layout_margin="@dimen/_8sdp"
                 android:text="Text"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
@@ -59,10 +61,14 @@
                 android:id="@+id/textViewWatchCommitCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
                 android:text="Text"
+                style="@style/TextBody12"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
-                app:layout_constraintTop_toBottomOf="@+id/textViewFullName" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewFullName"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_20sdp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,6 +171,5 @@
         -->
 
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
