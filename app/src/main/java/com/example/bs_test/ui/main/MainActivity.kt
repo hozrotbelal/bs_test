@@ -5,19 +5,25 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.bumptech.glide.Glide
 import com.example.bs_test.R
 import com.example.bs_test.data.storage.PreferenceStorage
 import com.example.bs_test.databinding.ActivityMainBinding
 import com.example.bs_test.ui.viewmodel.MainViewModel
 import com.example.bs_test.utils.LocaleHelper
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,10 +55,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpView() {
-//        constraintSet1 = ConstraintSet()
-//        constraintSet2 = ConstraintSet()
 
-
+       _binding!!.ivFilter.setOnClickListener {
+           onFilterBottomDialog()
+       }
         Timber.e("shouldOverrideUrlLoading--");
 
       //  navController?.navigate(R.id.homeScreenFragment)
@@ -84,6 +90,50 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+     fun onFilterBottomDialog() {
+        //  setViewAndChildrenEnabled(binding.swipeLayout,false)
+        val dialog = BottomSheetDialog(this,R.style.CustomBottomSheetDialog)
+        val view = layoutInflater.inflate(R.layout.bottom_layout_filter_view, null)
+        val tvSkip = view.findViewById<TextView>(R.id.tv_skip)
+        val rbGroupSortBy = view.findViewById<RadioGroup>(R.id.rb_group_sort_by)
+        val rbStars = view.findViewById<RadioButton>(R.id.rb_sort_by_stars)
+        val rbForks = view.findViewById<RadioButton>(R.id.rb_sort_by_forks)
+        val rbLastUpdate = view.findViewById<RadioButton>(R.id.rb_sort_by_last_update)
+
+        tvSkip.setOnClickListener {
+            dialog.dismiss()
+        }
+
+         rbGroupSortBy.setOnCheckedChangeListener { group, checkedId ->
+             if (checkedId == R.id.rb_sort_by_stars) {
+                 rbStars.isChecked = true
+                 rbForks.isChecked = false
+                 rbLastUpdate.isChecked = false
+                 Log.e("rbLeftQuestion","rbLeft");
+
+             }
+             if (checkedId == R.id.rb_sort_by_forks) {
+                 rbStars.isChecked = false
+                 rbForks.isChecked = true
+                 rbLastUpdate.isChecked = false
+                 Log.e("rbLeft","rbLeft");
+
+             }
+             if (checkedId == R.id.rb_sort_by_last_update) {
+                 rbStars.isChecked = false
+                 rbForks.isChecked = false
+                 rbLastUpdate.isChecked = true
+                 Log.e("rbRightQuestion","rbRight");
+
+             }
+         }
+        dialog.setCancelable(false)
+//        dialog.setContentView(view)
+        dialog.show()
+
+    }
+
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()

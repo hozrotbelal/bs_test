@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="colorPrimary">#316CFF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -56,4 +56,33 @@
     <color name="orange">#EC7252</color>
     <color name="progressbar_bg_color">#F1F1F1</color>
     <color name="red_warning">#ff3b30</color>
+
+    <color name="color1">#f3f3f3</color>
+    <color name="color2">#e3e3e3</color>
+    <color name="color3">#ebebeb</color>
+    <color name="color4">#cccccc</color>
+    <color name="bg">#fcfcff</color>
+    <color name="slider_bg_color">#00FFFFFF</color>
+    <color name="color_shimmer">#B3B3B3</color>
+
+    <color name="txt_black_10">#0A0A0A</color>
+    <color name="txt_black_11">#24292E</color>
+
+    <color name="transparent_37">#5e000000</color>
+    <color name="pattens_blue_old">#caeaff</color>
+
+    <color name="color_red">#eb4a5f</color>
+    <color name="color_grey">#B5B8C4</color>
+    <color name="color_stepper_dark">#F37C1E</color>
+    <color name="color_grey1">#63676A</color>
+    <color name="color_view">#F2F2F2</color>
+
+    <color name="colorAccent">@color/black</color>
+    <color name="airBlue">#008fb4</color>
+    <color name="grey1">#f5f9fb</color>
+    <color name="grey2">#e7eef1</color>
+    <color name="grey3">#cad7dc</color>
+    <color name="grey4">#839094</color>
+    <color name="grey5">#3a3d3e</color>
+    <color name="shimmer_grey">#B3B3B3</color>
 </resources>
