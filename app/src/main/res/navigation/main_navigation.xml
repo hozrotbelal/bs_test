@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_screen_navigation"
     app:startDestination="@id/homeScreenFragment">
+    <dialog
+        android:id="@+id/SearchFilterBottomSheetFragment"
+        android:name="com.example.bs_test.ui.search.SearchFilterBottomSheetFragment"
+        android:label="HashtagSelectionBottomSheetFragment">
+           </dialog>
 
        <fragment
         android:id="@+id/homeScreenFragment"

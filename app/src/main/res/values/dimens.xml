@@ -9,6 +9,7 @@
     <dimen name="activity_horizontal_margin">@dimen/_12sdp</dimen>
     <dimen name="activity_vertical_margin">@dimen/_12sdp</dimen>
 
+
     <dimen name="nav_header_vertical_spacing">@dimen/_6sdp</dimen>
     <dimen name="nav_header_height">@dimen/_135sdp</dimen>
 

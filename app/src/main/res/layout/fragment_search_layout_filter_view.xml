@@ -58,7 +58,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:id="@+id/tv_skip"
+                    android:id="@+id/tv_clear"
                     style="@style/TextAppearanceBase.Title6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

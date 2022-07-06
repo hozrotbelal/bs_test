@@ -5,18 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.bs_test.R
 import com.example.bs_test.data.interfaces.SearchSelectionListener
 import com.example.bs_test.data.model.Item
@@ -29,7 +25,6 @@ import com.example.bs_test.utils.LocaleHelper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -103,7 +98,8 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
 //        }
 
         _binding!!.ivFilter.setOnClickListener {
-           onFilterBottomDialog()
+            navController?.navigate(R.id.SearchFilterBottomSheetFragment)
+           //onFilterBottomDialog()
        }
         Timber.e("shouldOverrideUrlLoading--");
 
@@ -140,8 +136,8 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
      fun onFilterBottomDialog() {
         //  setViewAndChildrenEnabled(binding.swipeLayout,false)
         val dialog = BottomSheetDialog(this,R.style.CustomBottomSheetDialog)
-        val view = layoutInflater.inflate(R.layout.bottom_layout_filter_view, null)
-        val tvSkip = view.findViewById<TextView>(R.id.tv_skip)
+        val view = layoutInflater.inflate(R.layout.fragment_search_layout_filter_view, null)
+        val tvSkip = view.findViewById<TextView>(R.id.tv_filter)
         val rbGroupSortBy = view.findViewById<RadioGroup>(R.id.rb_group_sort_by)
         val rbStars = view.findViewById<RadioButton>(R.id.rb_sort_by_stars)
         val rbForks = view.findViewById<RadioButton>(R.id.rb_sort_by_forks)
