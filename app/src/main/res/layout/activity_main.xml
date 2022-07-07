@@ -100,7 +100,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing=".1"
-                            android:text="song"
+                            android:text="Github"
                             android:textColor="@color/base_text_color"
                             app:layout_constraintBottom_toTopOf="@+id/rel_filter"
                             app:layout_constraintEnd_toEndOf="parent"

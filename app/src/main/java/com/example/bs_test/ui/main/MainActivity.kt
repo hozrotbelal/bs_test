@@ -4,12 +4,20 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
-import android.widget.*
+import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,13 +27,16 @@ import com.example.bs_test.data.model.Item
 import com.example.bs_test.data.network.Status
 import com.example.bs_test.data.storage.PreferenceStorage
 import com.example.bs_test.databinding.ActivityMainBinding
+import com.example.bs_test.managers.StateManageClass
 import com.example.bs_test.ui.adapter.SearchAdapter
 import com.example.bs_test.ui.viewmodel.MainViewModel
+import com.example.bs_test.util.isEmpty
 import com.example.bs_test.utils.LocaleHelper
+import com.example.bs_test.utils.SEARCH_KEY
+import com.example.bs_test.utils.SEARCH_TIME_DELAY
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,16 +52,18 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
     private var move = true
     private var moveToMap = true
     private var isGPSEnabled = false
-   // lateinit var loginViewModel: MainViewModel
+    private var orderBy: String? = null
+    private var sortBy: String? = null
    private val mainViewModel : MainViewModel by viewModels()
     private lateinit var searchAdapter: SearchAdapter
+    private val mHandlerSearchChange: Handler = Handler(Looper.getMainLooper())
 
     @Inject
     lateinit var preferences: PreferenceStorage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        mainViewModel.getReposByList("android","stars","desc")
+        mainViewModel.getReposByList(SEARCH_KEY,StateManageClass.sortBy,StateManageClass.orderBy)
 
         setContentView(binding.root)
         setupNavController()
@@ -89,93 +102,58 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
             }
         }
 
-//        mainViewModel.highLightPostSelectionUpdate.observe(this) {
-//            it?.let { resource ->
-//                run {
-//                    searchAdapter.selectionUpdate(resource)
-//                }
-//            }
-//        }
+        val mRunnableSearchChange = kotlinx.coroutines.Runnable {
+            observeLatestDataList()
+
+        }
 
         _binding!!.ivFilter.setOnClickListener {
-            navController?.navigate(R.id.SearchFilterBottomSheetFragment)
-           //onFilterBottomDialog()
+           navController?.navigate(R.id.SearchFilterBottomSheetFragment)
+          //onFilterBottomDialog()
        }
         Timber.e("shouldOverrideUrlLoading--");
 
       //  navController?.navigate(R.id.homeScreenFragment)
-//        img_notification.setOnClickListener {
-//            navController?.navigate(R.id.NotificationBottomSheetFragment)
-//            //  goNotificationDetails(this)
-//            img_commons.visibility = View.GONE
-//            image_two.visibility = View.VISIBLE
-//            image_one.visibility = View.VISIBLE
-//            image_middle.visibility = View.VISIBLE
-//        }
-//        img_plus_icon.setOnClickListener {
-//
-//            //Check Location/GPS is ON or OFF
-//            LocationUtil(this).turnGPSOn(object :
-//                LocationUtil.OnLocationOnListener {
-//                override fun locationStatus(isLocationOn: Boolean) {
-//                    this@MainActivity.isGPSEnabled = isLocationOn
-//                }
-//            })
-//            checkPermissions()
-//            // navController?.navigate(R.id.HashtagSelectionBottomSheetFragment)
-//            // showHideIcon(false)
-//            // navController.navigate(R.id.MusicPlayScreenFragment)
-//            StateManageClass.clear()
-//            // navController?.navigate(HomeFragmentDirections.actionHomeScreenFragmentToMapScreen())
-//        }
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                charSequence: CharSequence,
+                i: Int,
+                i1: Int,
+                i2: Int
+            ) {
+            }
 
+            override fun onTextChanged(
+                charSequence: CharSequence,
+                i: Int,
+                i1: Int,
+                i2: Int
+            ) {
+                mHandlerSearchChange.removeCallbacks(mRunnableSearchChange)
+            }
 
+            override fun afterTextChanged(editable: Editable) {
+                mHandlerSearchChange.postDelayed(mRunnableSearchChange, SEARCH_TIME_DELAY)
+            }
+        })
 
     }
 
-     fun onFilterBottomDialog() {
-        //  setViewAndChildrenEnabled(binding.swipeLayout,false)
-        val dialog = BottomSheetDialog(this,R.style.CustomBottomSheetDialog)
-        val view = layoutInflater.inflate(R.layout.fragment_search_layout_filter_view, null)
-        val tvSkip = view.findViewById<TextView>(R.id.tv_filter)
-        val rbGroupSortBy = view.findViewById<RadioGroup>(R.id.rb_group_sort_by)
-        val rbStars = view.findViewById<RadioButton>(R.id.rb_sort_by_stars)
-        val rbForks = view.findViewById<RadioButton>(R.id.rb_sort_by_forks)
-        val rbLastUpdate = view.findViewById<RadioButton>(R.id.rb_sort_by_last_update)
+    private fun observeLatestDataList() {
+//        if (isEmpty(_binding!!.etSearch.text.toString().trim())) {
+//            binding.rcSearch.visibility = View.GONE
+//            return
+//        }
 
-        tvSkip.setOnClickListener {
-            dialog.dismiss()
+        SEARCH_KEY = _binding!!.etSearch.text.toString().trim()
+        if (mainViewModel.postList.size > 0)
+            mainViewModel.postList.clear()
+        lifecycleScope.launchWhenResumed {
+            binding.rcSearch.visibility = View.VISIBLE
+          //  loadingState()
+            mainViewModel.getReposByList(SEARCH_KEY,StateManageClass.sortBy,StateManageClass.orderBy)
         }
-
-         rbGroupSortBy.setOnCheckedChangeListener { group, checkedId ->
-             if (checkedId == R.id.rb_sort_by_stars) {
-                 rbStars.isChecked = true
-                 rbForks.isChecked = false
-                 rbLastUpdate.isChecked = false
-                 Log.e("rbLeftQuestion","rbLeft");
-
-             }
-             if (checkedId == R.id.rb_sort_by_forks) {
-                 rbStars.isChecked = false
-                 rbForks.isChecked = true
-                 rbLastUpdate.isChecked = false
-                 Log.e("rbLeft","rbLeft");
-
-             }
-             if (checkedId == R.id.rb_sort_by_last_update) {
-                 rbStars.isChecked = false
-                 rbForks.isChecked = false
-                 rbLastUpdate.isChecked = true
-                 Log.e("rbRightQuestion","rbRight");
-
-             }
-         }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
-
     }
-
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
@@ -214,23 +192,17 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
     }
 
 
-
-
     fun show(activity: MainActivity) {
-
 
         val navHostFragment =
             activity.supportFragmentManager.findFragmentById(R.id.homeScreenFragment) as NavHostFragment
         navController = navHostFragment.navController
-
-
 
         navController?.addOnDestinationChangedListener { controller, destination, arguments ->
             activity.supportFragmentManager.popBackStack(
                 R.id.content_viewer,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
-
 
         }
 
@@ -284,7 +256,12 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
     }
 
     override fun onPagination() {
+        if (mainViewModel.mIsLoading || mainViewModel.mIsLastPage) {
+            return
+        }
+        mainViewModel.getReposByList(SEARCH_KEY,StateManageClass.sortBy,StateManageClass.orderBy)
     }
+
 
 
 }

@@ -18,24 +18,14 @@ var LIMIT = 30
 var PAGE_LIMIT = 50
 var SEARCHETEXT = ""
 var SONG_TIME: Long = 30000
-var SEARCH_KEY: String = ""
+var SEARCH_KEY: String = "android"
 const val SPLASH_TIME: Long = 1000
 const val COMPRESS_QUALITY = 40
 
 var BEARER:String="Bearer "
 var publishFlg:Int=1
 
-const val VISIBLE_POST_ID = "visible_post_id"
-const val CLICKED_POST_ID = "clicked_post_id"
-const val POSTS_REFERENCE = "posts"
 
-//const val CLICKED_OUTSIDE = "clicked_outside"
-const val ZOOM_IN_ACTION_CENTER = "zoom_in_action_center"
-
-const val HIGH_LIGHT_EDIT = "HIGH_LIGHT_EDIT"
-const val HIGH_LIGHT_ITEM = "HIGH_LIGHT_ITEM"
-const val HIGH_LIGHT_ID = "HIGH_LIGHT_ID"
-const val HIGH_LIGHT_LIST = "HIGH_LIGHT_LIST"
 
 const val STORY_DURATION:Long = 10000
 const val HIGHLIGHT_DURATION:Long = 30000

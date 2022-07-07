@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
     var postList: MutableList<Item> = mutableListOf()
     val commonError = MutableLiveData<String>()
     val messageEvent = MutableLiveData<Resource<String>>()
-    val postData = MutableLiveData<Resource<MutableList<Item>>>()
+ val postData = MutableLiveData<Resource<MutableList<Item>>>()
 
 
     fun getReposByList(search : String?,sort : String,order : String) {

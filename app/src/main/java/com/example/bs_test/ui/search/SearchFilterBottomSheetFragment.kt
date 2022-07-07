@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.bs_test.R
@@ -14,7 +16,9 @@ import com.example.bs_test.data.interfaces.AfterCallBack
 import com.example.bs_test.ui.widget.superbottomsheet.SuperBottomSheetFragment
 import com.example.bs_test.data.interfaces.BottomSheetSlideCallback
 import com.example.bs_test.databinding.FragmentSearchLayoutFilterViewBinding
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import com.example.bs_test.managers.StateManageClass
+
+//import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 
 
 @AndroidEntryPoint
@@ -39,6 +43,40 @@ class SearchFilterBottomSheetFragment : SuperBottomSheetFragment(), BottomSheetS
 
         callback = this
 
+        binding.rbGroupSortBy.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId == R.id.rb_sort_by_stars) {
+                binding.rbSortByStars.isChecked = true
+                binding.rbSortByForks.isChecked = false
+                binding.rbSortByLastUpdate.isChecked = false
+                StateManageClass.sortBy = "stars"
+
+            }
+            if (checkedId == R.id.rb_sort_by_forks) {
+                binding.rbSortByStars.isChecked = false
+                binding.rbSortByForks.isChecked = true
+                binding.rbSortByLastUpdate.isChecked = false
+                StateManageClass.sortBy = "forks"
+            }
+            if (checkedId == R.id.rb_sort_by_last_update) {
+                binding.rbSortByStars.isChecked = false
+                binding.rbSortByForks.isChecked = false
+                binding.rbSortByLastUpdate.isChecked = true
+                StateManageClass.sortBy = "updated"
+            }
+        }
+            binding.rbGroupOrderBy.setOnCheckedChangeListener { group, checkedId ->
+                if (checkedId == R.id.rb_order_by_ascending) {
+                    binding.rbOrderByAscending.isChecked = true
+                    binding.rbOrderByDescending.isChecked = false
+                    StateManageClass.orderBy = "asc"
+
+                }
+                if (checkedId == R.id.rb_order_by_descending) {
+                    binding.rbOrderByAscending.isChecked = false
+                    binding.rbOrderByDescending.isChecked = true
+                    StateManageClass.orderBy = "desc"
+                }
+            }
         binding.tvClear.setOnClickListener {
             dismiss()
             try {
@@ -55,15 +93,15 @@ class SearchFilterBottomSheetFragment : SuperBottomSheetFragment(), BottomSheetS
         }
 
 
-        KeyboardVisibilityEvent.setEventListener(
-            requireActivity()
-        ) { isOpen ->
-            if (isOpen) {
-                afterCallBack()
-            } else {
-                afterCallBackAgain()
-            }
-        }
+//        KeyboardVisibilityEvent.setEventListener(
+//            requireActivity()
+//        ) { isOpen ->
+//            if (isOpen) {
+//                afterCallBack()
+//            } else {
+//                afterCallBackAgain()
+//            }
+//        }
 
         return binding.root
     }
@@ -73,7 +111,7 @@ class SearchFilterBottomSheetFragment : SuperBottomSheetFragment(), BottomSheetS
 
     }
 
-    override fun getPeekHeight() = requireContext().resources.getDimension(R.dimen._292sdp).toInt()
+    override fun getPeekHeight() = requireContext().resources.getDimension(R.dimen._392sdp).toInt()
     override fun getDim() = 0f
     override fun isSheetCancelableOnTouchOutside() = false
 

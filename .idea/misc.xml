@@ -3,16 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/drawable_filter_background.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_filter.xml" value="0.13541666666666666" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/bottom_footer_view.xml" value="0.11927083333333334" />
-        <entry key="app/src/main/res/layout/bottom_layout_filter_view.xml" value="0.1" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable-v24/ic_back.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable-v24/ic_search_song.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/background_curve.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/capsule_blue.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/capsule_view.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/ic_back.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/ic_profile.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/ic_search.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/radio_button_left_checked.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/radio_button_left_selector.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/radio_button_left_unchecked.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/shape_rounded_dialog.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/shape_rounded_dialog_alpha.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/drawable/top_bar.xml" value="0.196" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/layout/bottom_footer_view.xml" value="0.18802083333333333" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/layout/bottom_layout_filter.xml" value="0.4865616311399444" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/layout/bottom_layout_filter_view.xml" value="0.25" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/layout/fragment_search_layout_filter_view.xml" value="0.25" />
+        <entry key="..\:/Android Project/belal/MVVM test/bs_test/app/src/main/res/layout/row_search_list.xml" value="0.18802083333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1359375" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1359375" />
-        <entry key="app/src/main/res/layout/fragment_search_layout_filter_view.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/row_search_list.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/super_bottom_sheet_dialog.xml" value="0.1" />
       </map>
     </option>
   </component>
