@@ -10,7 +10,9 @@ import com.example.bs_test.data.network.Status
 import com.example.bs_test.data.network.api.ApiError
 import com.example.bs_test.data.repository.MainRepository
 import com.example.bs_test.data.storage.PreferenceStorage
+import com.example.bs_test.managers.StateManageClass
 import com.example.bs_test.utils.NetworkHelper
+import com.example.bs_test.utils.SEARCH_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,6 +46,10 @@ class MainViewModel @Inject constructor(
             postData.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 mainRepository.getGitRepositories(search, sort,order,limit, page).let {
+                    Log.e("status>>>",it.status.toString()+"")
+                    Log.e("ReposByList",
+                        search +"\n"+ sort+"\n"+ order+"")
+
                     if (it.status == Status.SUCCESS) {
                         page++
                         mIsLoading = false

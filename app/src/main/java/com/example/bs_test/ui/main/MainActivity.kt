@@ -20,10 +20,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bs_test.R
 import com.example.bs_test.data.interfaces.SearchSelectionListener
 import com.example.bs_test.data.model.Item
+import com.example.bs_test.data.network.Resource
 import com.example.bs_test.data.network.Status
 import com.example.bs_test.data.storage.PreferenceStorage
 import com.example.bs_test.databinding.ActivityMainBinding
@@ -86,8 +88,11 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
                         Status.SUCCESS -> {
                             searchAdapter.stopPagination(mainViewModel.mIsLastPage)
                             if (searchAdapter.hasData()) {
+                                Log.e("resource>>>",resource.data!!.toString()+"")
                                 searchAdapter.addAll(resource.data!!)
                             } else {
+                                Log.e("postList>>>",mainViewModel.postList.toString()+"")
+
                                 searchAdapter.addAll(mainViewModel.postList)
                             }
                         }
@@ -146,12 +151,19 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
 //        }
 
         SEARCH_KEY = _binding!!.etSearch.text.toString().trim()
-        if (mainViewModel.postList.size > 0)
+        if (mainViewModel.postList.size > 0){
+            mainViewModel.postData.postValue(Resource.loading(null))
             mainViewModel.postList.clear()
+
+        }
+
         lifecycleScope.launchWhenResumed {
             binding.rcSearch.visibility = View.VISIBLE
-          //  loadingState()
+            if(SEARCH_KEY.isNullOrEmpty()){
+                SEARCH_KEY ="android"
+            }
             mainViewModel.getReposByList(SEARCH_KEY,StateManageClass.sortBy,StateManageClass.orderBy)
+            searchAdapter.setItemList(mainViewModel.postList)
         }
     }
 
@@ -252,7 +264,10 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
     }
 
     override fun onSearchSelect(searchSelection: Item) {
+        Log.e("searchSelection", "searchSelection" + searchSelection.toString())
+       // findNavController().navigate(R.id.profileFragment)
 
+       // navController?.navigate(R.id.profileFragment)
     }
 
     override fun onPagination() {

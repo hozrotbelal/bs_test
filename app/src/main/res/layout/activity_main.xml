@@ -16,7 +16,8 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -119,14 +120,13 @@
                                 style="@style/TextBody12"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_50sdp"
-                                android:layout_marginTop="@dimen/_19sdp"
                                 android:layout_marginStart="@dimen/_25sdp"
                                 android:layout_marginEnd="@dimen/_65sdp"
                                 android:alpha="1.5"
                                 android:background="@drawable/background_curve"
                                 android:drawableLeft="@drawable/ic_search"
                                 android:drawablePadding="@dimen/_10sdp"
-                                android:hint="live"
+                                android:hint="Search"
                                 android:letterSpacing="-.015"
                                 android:lines="1"
                                 android:paddingStart="@dimen/_10sdp"

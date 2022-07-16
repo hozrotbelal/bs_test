@@ -1,6 +1,7 @@
 package com.example.bs_test.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,8 @@ import com.example.bs_test.databinding.RowSearchListBinding
 import com.example.bs_test.ui.viewmodel.MainViewModel
 
 class SearchAdapter(val context: Context,
-                    private val list: MutableList<Item>,
-                    private val highLightViewModel: MainViewModel,
+                    private var list: MutableList<Item>,
+                    private val mainViewModel: MainViewModel,
                     private val listener: SearchSelectionListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val footer: Int = 0
@@ -49,15 +50,7 @@ class SearchAdapter(val context: Context,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is CustomViewHolder) {
            holder.binding.data = list[position]
-//            val isSelected = highLightViewModel.isPostSelected(list[position].id)
-//            holder.itemView.tik_mark.isSelected = isSelected
-//            holder.binding.foreground.visibility = if (isSelected) View.VISIBLE else View.GONE
-//
-//            holder.itemView.tik_mark.setSafeOnClickListener {
-//                val postDetails = list[position]
-//                val selectedPost = SelectedPost(postDetails.id, postDetails.music!!.artwork, postDetails.music.musicName, postDetails.music.artistName, postDetails.publishStartDateTime)
-//                listener.onPostSelect(HighLightPostSelection(selectedPost, !holder.itemView.tik_mark.isSelected))
-//            }
+
 
             holder.binding.tvName.text = list[position].name
             holder.binding.textViewFullName.text = list[position].fullName
@@ -70,6 +63,11 @@ class SearchAdapter(val context: Context,
                 .placeholder(R.drawable.ic_profile)
                 .error(R.drawable.ic_profile)
                 .into(holder.binding.ivProfile)
+
+            holder.binding.cvItem.setOnClickListener {
+                listener.onSearchSelect(list[position])
+
+            }
 
         } else if (holder is FooterViewHolder) {
             if (stopPagination) {
@@ -121,4 +119,9 @@ class SearchAdapter(val context: Context,
         stopPagination = stop
     }
 
+    fun setItemList(item: MutableList<Item>) {
+        Log.e("item<<<<",item.toString()+"");
+        this.list = item
+        notifyDataSetChanged()
+    }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_screen_navigation"
     app:startDestination="@id/homeScreenFragment">
 
@@ -15,44 +16,22 @@
         android:name="com.example.bs_test.ui.home.HomeFragment"
         android:label="homeScreenFragment">
 
+    </fragment>
+
+
+<!--    <fragment-->
+<!--        android:id="@+id/profileFragment"-->
+<!--        android:name="com.example.bs_test.ui.profile.ProfileFragment"-->
+<!--        android:label="ProfileFragment"-->
+<!--       >-->
+
 <!--        <action-->
-<!--            android:id="@+id/action_homeScreenFragment_to_MusicPlayScreenFragment"-->
-<!--            app:destination="@id/MusicPlayScreenFragment"-->
+<!--            android:id="@+id/action_homeScreenFragment"-->
 <!--            app:enterAnim="@anim/from_right"-->
 <!--            app:exitAnim="@anim/to_left"-->
 <!--            app:popEnterAnim="@anim/from_left"-->
-<!--            app:popExitAnim="@anim/to_right" />-->
-<!--       -->
-<!--        <action-->
-<!--            android:id="@+id/action_homeScreenFragment_to_OthersProfileBottomSheetFragment"-->
-<!--            app:destination="@id/othersProfileBottomSheetFragment">-->
-
-<!--            <argument-->
-<!--                android:name="userId"-->
-<!--                app:argType="string"-->
-<!--                app:nullable="false" />-->
-
-<!--        </action>-->
-    </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/MusicPlayScreenFragment"-->
-<!--        android:name="app.thebeats.ui.main.view.MusicPlayFragment"-->
-<!--        android:label="musicPlayFragment">-->
-
-<!--        <argument-->
-<!--            android:name="postId"-->
-<!--            app:argType="string"-->
-<!--            app:nullable="false" />-->
-
-<!--        <argument-->
-<!--            android:name="postList"-->
-<!--            app:argType="app.thebeats.model.post.PostDetails[]"-->
-<!--            app:nullable="false" />-->
-
-<!--        <argument-->
-<!--            android:name="isFromHome"-->
-<!--            app:argType="boolean" />-->
-
+<!--            app:popExitAnim="@anim/to_right"-->
+<!--            />-->
 <!--    </fragment>-->
 
 
