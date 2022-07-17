@@ -29,6 +29,12 @@ data class Item(
     @Json(name = "private")
     val private: Boolean? = null,
 
+    @Json(name = "html_url")
+    val html_url: String? = null,
+
+    @Json(name = "description")
+    val description: String? = null,
+
     @Json(name = "fork")
     val fork: Boolean? = null,
 

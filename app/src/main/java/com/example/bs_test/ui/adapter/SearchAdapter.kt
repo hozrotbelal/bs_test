@@ -120,7 +120,6 @@ class SearchAdapter(val context: Context,
     }
 
     fun setItemList(item: MutableList<Item>) {
-        Log.e("item<<<<",item.toString()+"");
         this.list = item
         notifyDataSetChanged()
     }

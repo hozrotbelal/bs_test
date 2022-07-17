@@ -10,17 +10,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bs_test.R
 import com.example.bs_test.data.interfaces.SearchSelectionListener
@@ -31,13 +26,14 @@ import com.example.bs_test.data.storage.PreferenceStorage
 import com.example.bs_test.databinding.ActivityMainBinding
 import com.example.bs_test.managers.StateManageClass
 import com.example.bs_test.ui.adapter.SearchAdapter
+import com.example.bs_test.ui.profile.ProfileActivity
 import com.example.bs_test.ui.viewmodel.MainViewModel
-import com.example.bs_test.util.isEmpty
+import com.example.bs_test.utils.INTENT_KEY_ITEM
 import com.example.bs_test.utils.LocaleHelper
 import com.example.bs_test.utils.SEARCH_KEY
 import com.example.bs_test.utils.SEARCH_TIME_DELAY
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import org.parceler.Parcels
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -46,17 +42,9 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
     var navController: NavController? = null
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-
-    private var constraintSet1: ConstraintSet? = null
-    private var constraintSet2: ConstraintSet? = null
     private var zoom = false
     private var data = true
-    private var move = true
-    private var moveToMap = true
-    private var isGPSEnabled = false
-    private var orderBy: String? = null
-    private var sortBy: String? = null
-   private val mainViewModel : MainViewModel by viewModels()
+    private val mainViewModel : MainViewModel by viewModels()
     private lateinit var searchAdapter: SearchAdapter
     private val mHandlerSearchChange: Handler = Handler(Looper.getMainLooper())
 
@@ -264,10 +252,10 @@ class MainActivity : AppCompatActivity(), SearchSelectionListener {
     }
 
     override fun onSearchSelect(searchSelection: Item) {
-        Log.e("searchSelection", "searchSelection" + searchSelection.toString())
-       // findNavController().navigate(R.id.profileFragment)
-
-       // navController?.navigate(R.id.profileFragment)
+     //   Log.e("searchSelection", "searchSelection" + searchSelection.toString())
+        val intentAccepted = Intent(this, ProfileActivity::class.java)
+        intentAccepted.putExtra(INTENT_KEY_ITEM, Parcels.wrap(searchSelection))
+        startActivity(intentAccepted);
     }
 
     override fun onPagination() {

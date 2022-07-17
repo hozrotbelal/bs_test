@@ -146,7 +146,6 @@
                                 android:layout_height="@dimen/_45sdp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginStart="@dimen/_15sdp"
-                                android:layout_marginTop="@dimen/_20sdp"
                                 android:layout_marginEnd="@dimen/_8sdp"
                                 android:background="@drawable/drawable_filter_background"
                                 android:padding="@dimen/spacing_8_dp"

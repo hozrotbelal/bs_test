@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class LocaleHelper {
 
-    private static final String SELECTED_LANGUAGE = "Beats.Locale.Helper.Selected.Language";
+    private static final String SELECTED_LANGUAGE = "bs_test.Locale.Helper.Selected.Language";
 
     public static Context onAttach(Context context) {
         String lang = getPersistedData(context, Locale.getDefault().getLanguage());

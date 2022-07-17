@@ -9,7 +9,6 @@ class StateManageClass {
     companion object{
         var searchTxt: String = "android"
         var isFromHome = false
-        var refreshAllStoryFeel = false
         var orderBy: String = ""
         var sortBy: String = ""
         var itemList = mutableListOf<Item?>()

@@ -35,8 +35,6 @@ class MainViewModel @Inject constructor(
     var mIsLastPage: Boolean = false
     var edit: Boolean = false
     var postList: MutableList<Item> = mutableListOf()
-    val commonError = MutableLiveData<String>()
-    val messageEvent = MutableLiveData<Resource<String>>()
  val postData = MutableLiveData<Resource<MutableList<Item>>>()
 
 
@@ -46,15 +44,15 @@ class MainViewModel @Inject constructor(
             postData.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 mainRepository.getGitRepositories(search, sort,order,limit, page).let {
-                    Log.e("status>>>",it.status.toString()+"")
-                    Log.e("ReposByList",
-                        search +"\n"+ sort+"\n"+ order+"")
+//                    Log.e("status>>>",it.status.toString()+"")
+//                    Log.e("ReposByList",
+//                        search +"\n"+ sort+"\n"+ order+"")
 
                     if (it.status == Status.SUCCESS) {
                         page++
                         mIsLoading = false
                         it.data?.let { data ->
-                            Log.e("getReposByList",data.items!!.toString()+"")
+                          //  Log.e("getReposByList",data.items!!.toString()+"")
                             totalCount = data.totalCount!!
                             itemsCount += data.items!!.size
                             mIsLastPage = data.items!!.size != limit

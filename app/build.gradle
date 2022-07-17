@@ -121,4 +121,8 @@ dependencies {
     implementation 'dev.b3nedikt.viewpump:viewpump:4.0.5'
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
 
+    //Parceler
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
+
 }
